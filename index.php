@@ -12,7 +12,7 @@ if ( IS_PHP_CLI ) {
     $password = $argv[2];
 } else {
     // E_NONE is not a predefined constant
-    error_reporting(E_ERROR);
+    error_reporting(E_ALL);
     ini_set('display_errors', false);
     $username = $_POST['usr'];
     $password = $_POST['pwd'];
@@ -143,7 +143,7 @@ if ( empty($username) || empty($password) ) {
 	}
 
 	require_once('CFPropertyList/classes/CFPropertyList/CFPropertyList.php');
-	require_once('iospng/iospng.php');
+	require_once('PngUncrush/pnguncrush.php');
 
 	$empty = true;
 	foreach ( glob("$IOSADHOC_BASE_DIR/$username/*.ipa") as $ipaFilename ) {
@@ -196,11 +196,9 @@ if ( empty($username) || empty($password) ) {
 					if ( IS_PHP_CLI ) echo "  found icon file 72x72 in $entry_name\n";
 		            if ( zip_entry_open($zip, $entry) ) {
 						$iconContents = zip_entry_read($entry, zip_entry_filesize($entry));
-						$iconContents = normalizePNG4iOS($iconContents);
-						if ( $iconContents ) {
-							file_put_contents($pngFilename, $iconContents);
-							$iconFound = true;
-						}
+						if ( pnguncrush_decode_data($iconContents, $pngFilename) !== false ) {
+					        $iconFound = true;
+                        }
 	                }
 	                zip_entry_close($entry);
 				}
