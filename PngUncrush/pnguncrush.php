@@ -74,6 +74,8 @@ function pnguncrush_decode_data($image_data, $output_path = null) {
         }
     }
 
+    fclose($fh);
+
     // IHDR
     $out = $headerData;
     $out .= pack('N', $chunks[1]['length']);
