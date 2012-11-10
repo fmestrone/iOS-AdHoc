@@ -1,7 +1,7 @@
 <?php
 
 require_once('CFPropertyList/classes/CFPropertyList/CFPropertyList.php');
-require_once('PngUncrush/pnguncrush.php');
+require_once('lib/PngUncrush/pnguncrush.php');
 
 function webui_session_start() {
     global $IOSADHOC_TIMEOUT;
@@ -121,7 +121,7 @@ function adhocota_find_apps($username) {
             $newPlist->saveXML($plistFilename);
         }
         if ( !file_exists($iconSrc = $pngFilename) ) {
-            $iconSrc = 'app_store_icon.jpg';
+            $iconSrc = 'images/app_store_icon.jpg';
         }
         $ipaPList = new \CFPropertyList\CFPropertyList($plistFilename);
         $ipaPList->adhocota_iconSrc = $iconSrc;

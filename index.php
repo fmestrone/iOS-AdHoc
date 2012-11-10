@@ -2,8 +2,8 @@
 define('IOS_ADHOC_OTA', true);
 define('IS_PHP_CLI', PHP_SAPI == 'cli');
 
-require_once('config.php');
-require_once('adhocotalib.php');
+require_once('etc/config.php');
+require_once('lib/adhocotalib.php');
 
 if ( IS_PHP_CLI ) {
     error_reporting(E_ALL);
